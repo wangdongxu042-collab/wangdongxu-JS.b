@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>商品价格修改器</title>
+</head>
+<body>
+    <h1>商品价格修改器</h1>
+
+    <p>原价：<span id="price">100</span> 元</p>
+
+    <input id="discount" type="number"
+           placeholder="输入折扣系数，如 0.8"
+           min="0" max="1" step="0.1">
+
+    <button onclick="changePrice()">计算后价</button>
+
+    <p id="result">后价会显示在这里</p>
+
+    <script>
+        function changePrice() {
+            // 1. 找到显示原价的元素
+            let priceElement = document.getElementById("price");
+
+            // 2. 读取原价文字，并转成数字
+            let price = Number(priceElement.textContent);
+
+            // 3. 找到折扣输入框
+            let discountInput = document.getElementById("discount");
+
+            // 4. 读取输入内容，并转成数字
+            let discount = Number(discountInput.value);
+
+            // 5. 计算折后价
+            let finalPrice = price * discount;
+
+            // 6. 找到结果段落，并修改它的文字
+            let result = document.getElementById("result");
+            result.textContent = "折后价：" + finalPrice + " 元";
+        }
+    </script>
+</body>
+</html>

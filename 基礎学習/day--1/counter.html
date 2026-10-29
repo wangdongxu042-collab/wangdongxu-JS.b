@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>点击计数器</title>
+</head>
+<body>
+    <h1>点击计数器</h1>
+
+    <p id="number">0</p>
+
+    <button onclick="increase()">加 1</button>
+    <button onclick="decrease()">减 1</button>
+    <button onclick="reset()">重置</button>
+
+    <script>
+        let count = 0;
+        let numberElement = document.getElementById("number");
+
+        function increase() {
+            // 第一步：让 count 加 1
+            count = count + 1;
+
+            // 第二步：把 count 显示到网页上
+            numberElement.textContent = count;
+        }
+
+        function decrease() {
+            // 第一步：让 count 减 1
+            count = count - 1;
+
+            // 第二步：把 count 显示到网页上
+            numberElement.textContent = count;
+        }
+
+        function reset() {
+            // 第一步：把 count 改为 0
+            count = 0;
+
+            // 第二步：把 count 显示到网页上
+            numberElement.textContent = count;
+        }
+    </script>
+</body>
+</html>
