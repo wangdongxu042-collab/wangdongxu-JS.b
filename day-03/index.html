@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>点击事件 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 1 周 · DOM + 事件</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 03 / 19</p><h1>点击事件</h1><p class="muted">用 addEventListener("click") 驱动四种常见交互。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><h3>计数器</h3><p id="count" class="counter" aria-live="polite">0</p><div class="row"><button id="add">加 1</button><button id="reset" class="secondary">归零</button></div><h3>点赞与开关</h3><div class="row"><button id="like" aria-pressed="false">♡ 点赞 0</button><button id="switch" aria-pressed="false">开关：关</button></div><h3>展开与收起</h3><button id="expand" aria-expanded="false" aria-controls="detail">展开详情</button><p id="detail" class="output" hidden>事件监听器会在用户点击时执行回调函数。</p></section>
+<section class="panel"><h2>理解这一步</h2><p>变量保存状态，事件改变状态，再把新状态显示到页面。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-03/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>let count = 0;
+const countElement = document.querySelector('#count');
+document.querySelector('#add').addEventListener('click', function () {
+  count++;
+  countElement.textContent = count;
+});
+document.querySelector('#reset').addEventListener('click', function () {
+  count = 0;
+  countElement.textContent = count;
+});
+let liked = false;
+const likeBtn = document.querySelector('#like');
+likeBtn.addEventListener('click', function () {
+  liked = !liked;
+  likeBtn.textContent = liked ? '♥ 已点赞 1' : '♡ 点赞 0';
+  likeBtn.setAttribute('aria-pressed', String(liked));
+});
+let on = false;
+const switchBtn = document.querySelector('#switch');
+switchBtn.addEventListener('click', function () {
+  on = !on;
+  switchBtn.textContent = on ? '开关：开' : '开关：关';
+  switchBtn.setAttribute('aria-pressed', String(on));
+});
+const expandBtn = document.querySelector('#expand');
+const detail = document.querySelector('#detail');
+expandBtn.addEventListener('click', function () {
+  detail.hidden = !detail.hidden;
+  expandBtn.textContent = detail.hidden ? '展开详情' : '收起详情';
+  expandBtn.setAttribute('aria-expanded', String(!detail.hidden));
+});
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>计数器可增加、归零。</li><li>点赞和开关可切换状态。</li><li>详情可展开、收起。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-02/index.html">← 第 2 天</a><a href="../index.html">课程目录</a><a href="../day-04/index.html">第 4 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

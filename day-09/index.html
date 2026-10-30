@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数组与列表 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 2 周 · 数组对象 + 页面渲染</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 09 / 19</p><h1>数组与列表</h1><p class="muted">用数组保存多个名字，完成遍历、新增和删除。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><form id="name-form"><label for="new-name">新增名字</label><div class="row"><input id="new-name" placeholder="请输入名字"><button type="submit">添加名字</button></div></form><p id="message" class="status" role="status"></p><ul id="names" class="list"></ul><pre id="array"></pre></section>
+<section class="panel"><h2>理解这一步</h2><p>数组的下标从 0 开始。重复名字也能按各自的位置独立删除。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-09/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const names = ['张三', '李四', '王五'];
+const list = document.querySelector('#names');
+function renderNames() {
+  list.replaceChildren(); // 先清空旧列表，防止重复渲染。
+  names.forEach(function (name, index) {
+    const item = document.createElement('li');
+    const row = document.createElement('div');
+    row.className = 'row';
+    const text = document.createElement('span');
+    text.textContent = name;
+    const button = document.createElement('button');
+    button.textContent = '删除';
+    button.className = 'secondary';
+    button.setAttribute('aria-label', '删除第 ' + (index + 1) + ' 项 ' + name);
+    button.addEventListener('click', function () {
+      names.splice(index, 1); // 从 index 开始删除 1 项。
+      renderNames();
+    });
+    row.append(text, button);
+    item.append(row);
+    list.append(item);
+  });
+  if (names.length === 0) list.textContent = '列表为空，添加第一个名字吧。';
+  document.querySelector('#array').textContent = JSON.stringify(names, null, 2);
+}
+document.querySelector('#name-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+  const input = document.querySelector('#new-name');
+  const name = input.value.trim();
+  if (!name) {
+    document.querySelector('#message').textContent = '名字不能为空。';
+    return;
+  }
+  names.push(name);
+  renderNames();
+  input.value = '';
+  input.focus();
+  document.querySelector('#message').textContent = '已添加 ' + name + '。';
+});
+renderNames();
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>初始显示三个名字。</li><li>输入后回车或点击按钮新增。</li><li>可以按行删除，包括删除最后一项。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-08/index.html">← 第 8 天</a><a href="../index.html">课程目录</a><a href="../day-10/index.html">第 10 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

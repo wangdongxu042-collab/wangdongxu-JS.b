@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>个人介绍生成器</title>
+</head>
+<body>
+    <h1>个人介绍生成器</h1>
+
+    <input id="nameInput" type="text" placeholder="请输入姓名">
+    <input id="ageInput" type="number" placeholder="请输入年龄">
+
+    <button onclick="introduce()">生成介绍</button>
+
+    <p id="result">介绍会显示在这里</p>
+
+    <script>
+        function introduce() {
+            // 1. 读取姓名
+            let name = document.getElementById("nameInput").value;
+
+            // 2. 读取年龄，并转换成数字
+            let age = Number(document.getElementById("ageInput").value);
+
+            // 3. 找到显示结果的段落
+            let result = document.getElementById("result");
+
+            // 4. 根据年龄修改网页文字
+            if (age >= 18) {
+                result.textContent = "你好，" + name + "，你是成年人。";
+            } else {
+                result.textContent = "你好，" + name + "，你还未成年。";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言预览器</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="card">
+        <h1>留言预览器</h1>
+
+        <label for="messageInput">请输入留言</label>
+
+        <textarea
+            id="messageInput"
+            placeholder="写点什么吧……"
+            maxlength="100"
+            oninput="updatePreview()"
+        ></textarea>
+
+        <p class="counter">
+            已输入 <span id="count">0</span> / 100
+        </p>
+
+        <h2>留言预览</h2>
+        <p id="preview">还没有留言</p>
+
+        <button onclick="clearMessage()">清空</button>
+    </main>
+</body>
+</html>

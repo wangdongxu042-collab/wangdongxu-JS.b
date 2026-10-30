@@ -1,58 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Day 21 · 购物车总价计算器</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <title>我的主页</title>
+
+  <style>
+    body {
+      background: #f2f4f8;
+      font-family: sans-serif;
+      padding: 40px 20px;
+    }
+
+    .card {
+      max-width: 360px;
+      margin: auto;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      background: #3366ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="shell">
-    <header><a href="../index.html">← JavaScript 练习</a><span>DAY 21 / 数组 · 对象 · 函数 · 条件判断</span></header>
-    <main>
-      <p class="eyebrow">SHOPPING CART</p>
-      <h1>购物车总价计算器<span>每一笔，都算清楚。</span></h1>
-      <p class="intro">添加几件喜欢的商品，看看折扣和运费如何改变最终金额。</p>
-      <div class="layout">
-        <section class="panel" aria-labelledby="cart-title">
-          <div class="heading"><h2 id="cart-title">我的购物车 <span id="item-count" class="badge">0 件</span></h2><button id="clear-cart" class="text-button" type="button">清空</button></div>
-          <ul id="cart-items" class="cart-items" aria-label="购物车商品"></ul>
-          <p id="empty-cart" class="empty" hidden>购物车还是空的<br><span>添加一件商品开始计算，空车不收运费。</span></p>
-          <form id="add-form">
-            <h3>添加商品</h3>
-            <div class="fields">
-              <label class="name-field" for="product-name">商品名称<input id="product-name" name="name" placeholder="例如：帆布包" maxlength="40" required></label>
-              <label for="product-price">单价 / 元<input id="product-price" name="price" type="number" min="0.01" max="999999" step="0.01" placeholder="0.00" required></label>
-              <label for="product-quantity">数量<input id="product-quantity" name="quantity" type="number" min="1" max="999" step="1" value="1" required></label>
-            </div>
-            <button class="primary" type="submit">＋ 加入购物车</button>
-            <p id="form-message" role="status"></p>
-          </form>
-        </section>
-        <aside class="panel summary" aria-labelledby="summary-title">
-          <p class="eyebrow">ORDER SUMMARY</p>
-          <h2 id="summary-title">订单明细</h2>
-          <div aria-live="polite" aria-atomic="true">
-            <dl class="details">
-              <div><dt>商品总价</dt><dd id="subtotal">¥0.00</dd></div>
-              <div><dt>满 300 元享九折</dt><dd id="discount">−¥0.00</dd></div>
-              <div><dt>折后金额</dt><dd id="discounted-total">¥0.00</dd></div>
-              <div><dt>运费</dt><dd id="shipping">¥0.00</dd></div>
-            </dl>
-            <p id="shipping-note" class="note"></p>
-            <div class="total"><span>最终应付</span><strong id="total">¥0.00</strong></div>
-          </div>
-          <div class="rules"><h3>计价规则</h3><ol><li>单价 × 数量，累加商品总价。</li><li>商品总价满 300 元，享九折。</li><li>折后不足 200 元，收 15 元运费。</li><li>空购物车返回 0，不收运费。</li></ol></div>
-        </aside>
-      </div>
-      <section class="examples" aria-labelledby="examples-title">
-        <div><h2 id="examples-title">试试临界金额</h2><p>点击载入示例，观察金额变化（会替换当前购物车）。</p></div>
-        <div class="example-buttons"><button type="button" data-example="0">空购物车</button><button type="button" data-example="199">¥199</button><button type="button" data-example="200">¥200</button><button type="button" data-example="299">¥299</button><button type="button" data-example="300">¥300 · 九折</button></div>
-      </section>
-      <p class="footnote">金额按人民币分计算，折扣结果四舍五入到分。打开控制台可调用 calculateTotal(cart)。</p>
-    </main>
-    <footer>DAY 21 <span>把规则，写成函数。</span></footer>
+  <div class="card">
+    <h1>你好，我是小王</h1>
+    <p>这是我做的第一个网页。</p>
+    <button onclick="sayHello()">打个招呼</button>
   </div>
+
+  <script>
+    function sayHello() {
+      alert("很高兴认识你！");
+    }
+  </script>
 </body>
 </html>

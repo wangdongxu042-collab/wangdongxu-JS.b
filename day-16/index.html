@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Promise：成功与失败 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 3 周 · 异步请求 + API</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 16 / 19</p><h1>Promise：成功与失败</h1><p class="muted">认识 pending、fulfilled、rejected 三种状态。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><p>这是本地模拟请求，不需要网络。每次约 1 秒后完成。</p><div class="row"><button id="success">模拟成功</button><button id="failure" class="secondary">模拟失败</button></div><p id="promise-state" class="output" role="status">等待开始。</p><ol id="log"></ol></section>
+<section class="panel"><h2>理解这一步</h2><p>Promise 只会从 pending 进入一种最终状态，成功和失败不会同时发生。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-16/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const successBtn = document.querySelector('#success');
+const failureBtn = document.querySelector('#failure');
+const state = document.querySelector('#promise-state');
+const logList = document.querySelector('#log');
+function log(message) {
+  const item = document.createElement('li');
+  item.textContent = message;
+  logList.append(item);
+}
+function requestData(shouldFail) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      if (shouldFail) reject(new Error('模拟请求失败。'));
+      else resolve({ message: '拿到数据了！' });
+    }, 1000);
+  });
+}
+function run(shouldFail) {
+  logList.replaceChildren();
+  state.textContent = 'pending：等待结果……';
+  successBtn.disabled = failureBtn.disabled = true;
+  log('1. 发起异步任务。');
+  requestData(shouldFail)
+    .then(function (data) {
+      state.textContent = 'fulfilled：' + data.message;
+      log('3. then 处理成功结果。');
+    })
+    .catch(function (error) {
+      state.textContent = 'rejected：' + error.message;
+      log('3. catch 处理失败原因。');
+    })
+    .finally(function () {
+      successBtn.disabled = failureBtn.disabled = false;
+      log('4. finally 进行收尾。');
+    });
+  log('2. 请求还没结束，这一行已经执行了。');
+}
+successBtn.addEventListener('click', function () { run(false); });
+failureBtn.addEventListener('click', function () { run(true); });
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>点击成功按钮，先等待，再得到结果。</li><li>点击失败按钮，错误被 catch 捕获。</li><li>成功或失败后，finally 都会恢复按钮。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-15/index.html">← 第 15 天</a><a href="../index.html">课程目录</a><a href="../day-17/index.html">第 17 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

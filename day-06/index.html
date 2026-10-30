@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>个人资料编辑器 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 1 周 · DOM + 事件</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 06 / 19</p><h1>个人资料编辑器</h1><p class="muted">把输入、点击、表单和样式切换组合成一个小项目。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><form id="profile-form"><label for="nickname">昵称</label><input id="nickname" maxlength="30" value="JavaScript 学习者"><label for="bio">简介</label><textarea id="bio" maxlength="300">每天练习一点点。</textarea><div class="row"><button type="submit">保存资料</button><button id="theme" type="button" class="secondary" aria-pressed="false">切换深色模式</button></div><p id="message" class="status" role="status"></p></form><article class="output" aria-live="polite"><h3 id="display-name" class="profile-name">JavaScript 学习者</h3><p id="display-bio" class="preserve-lines">每天练习一点点。</p></article><p class="muted">本练习保存到页面内存，刷新后恢复初始资料。</p></section>
+<section class="panel"><h2>理解这一步</h2><p>先实现保存，再加校验，最后添加主题切换。一次只验证一个功能。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-06/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const nickname = document.querySelector('#nickname');
+const bio = document.querySelector('#bio');
+document.querySelector('#profile-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+  const name = nickname.value.trim();
+  const message = document.querySelector('#message');
+  message.classList.toggle('error', !name);
+  if (!name) {
+    message.textContent = '昵称不能为空。';
+    nickname.focus();
+    return;
+  }
+  // 用户输入用 textContent 显示，不会被解释成 HTML。
+  document.querySelector('#display-name').textContent = name;
+  document.querySelector('#display-bio').textContent = bio.value.trim() || '这个人还没有填写简介。';
+  message.textContent = '资料已保存到当前页面。';
+});
+const themeBtn = document.querySelector('#theme');
+themeBtn.addEventListener('click', function () {
+  const dark = document.body.classList.toggle('dark');
+  themeBtn.textContent = dark ? '切换浅色模式' : '切换深色模式';
+  themeBtn.setAttribute('aria-pressed', String(dark));
+});
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>填写昵称和简介，保存后更新资料卡。</li><li>空昵称不能保存；多行简介保留换行。</li><li>深色模式可以来回切换。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-05/index.html">← 第 5 天</a><a href="../index.html">课程目录</a><a href="../day-07/index.html">第 7 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

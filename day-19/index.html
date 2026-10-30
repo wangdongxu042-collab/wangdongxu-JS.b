@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>loading 和错误处理 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 3 周 · 异步请求 + API</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 19 / 19</p><h1>loading 和错误处理</h1><p class="muted">完整处理加载、成功、失败、超时和重试。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><label for="mode">请求模式</label><select id="mode"><option value="normal">正常接口</option><option value="failure">失败演示（无效接口路径）</option></select><p class="muted">演示失败后，请切回“正常接口”，再点击重试。</p><div class="row"><button id="load">加载用户</button><span id="loading" hidden>Loading · 正在加载……</span></div><p id="request-url" class="note">等待发起请求。</p><p id="status" class="status" role="status">需要网络；请求超时为 10 秒。</p><div id="result-region" aria-busy="false"><ul id="users" class="list" aria-label="用户列表"></ul></div></section>
+<section class="panel"><h2>理解这一步</h2><p>在浏览器开发者工具的 Network 中切换 Offline，也可以验证断网失败，再恢复网络重试。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-19/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>function renderUsers(users) {
+  const list = document.querySelector('#users');
+  list.replaceChildren();
+  users.forEach(function (user) {
+    const item = document.createElement('li');
+    const name = document.createElement('h3');
+    name.textContent = user.name;
+    const email = document.createElement('p');
+    email.textContent = user.email;
+    const company = document.createElement('small');
+    company.textContent = user.company ? user.company.name : '未提供公司信息';
+    item.append(name, email, company);
+    list.append(item);
+  });
+}
+
+const button = document.querySelector('#load');
+const loading = document.querySelector('#loading');
+const status = document.querySelector('#status');
+const region = document.querySelector('#result-region');
+const mode = document.querySelector('#mode');
+button.addEventListener('click', async function () {
+  const url = mode.value === 'failure'
+    ? 'https://jsonplaceholder.typicode.com/invalid-practice-route'
+    : 'https://jsonplaceholder.typicode.com/users';
+  const controller = new AbortController();
+  const timeout = setTimeout(function () { controller.abort(); }, 10000);
+  // 请求前：设置 loading，清除旧数据和旧错误。
+  button.disabled = mode.disabled = true;
+  loading.hidden = false;
+  region.setAttribute('aria-busy', 'true');
+  status.classList.remove('error');
+  status.textContent = '正在请求，请稍候。';
+  document.querySelector('#request-url').textContent = url;
+  document.querySelector('#users').replaceChildren();
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error('服务器返回 HTTP ' + response.status);
+    const users = await response.json();
+    if (!Array.isArray(users)) throw new Error('返回数据格式不正确');
+    renderUsers(users);
+    status.textContent = users.length ? '加载成功，共 ' + users.length + ' 位用户。' : '请求成功，用户列表为空。';
+    button.textContent = '重新加载';
+  } catch (error) {
+    status.classList.add('error');
+    status.textContent = error.name === 'AbortError'
+      ? '请求超时（10 秒）。请检查网络后重试。'
+      : '加载失败：' + error.message + '。可切换正常接口后重试。';
+    button.textContent = '重试请求';
+  } finally {
+    // 无论成功或失败，都结束 loading 并清理超时定时器。
+    clearTimeout(timeout);
+    loading.hidden = true;
+    button.disabled = mode.disabled = false;
+    region.setAttribute('aria-busy', 'false');
+  }
+});
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>请求时显示 Loading，并防止重复点击。</li><li>正常请求后显示用户列表，loading 消失。</li><li>失败模式触发真实 HTTP 错误；改回正常模式后可重试。</li><li>网络超过 10 秒无结果时给出超时提示。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-18/index.html">← 第 18 天</a><a href="../index.html">课程目录</a><span>已到第 19 天 · 试着独立重写吧</span></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

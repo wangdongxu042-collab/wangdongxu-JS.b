@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>输入框事件 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 1 周 · DOM + 事件</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 04 / 19</p><h1>输入框事件</h1><p class="muted">监听 input 事件，读取 input.value。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><label for="text">实时文字</label><input id="text" placeholder="试着输入一段文字"><p id="mirror" class="output" aria-live="polite">你还没有输入文字。</p><label for="name">你的名字</label><input id="name" autocomplete="off"><p id="welcome" class="status" aria-live="polite">请输入名字。</p><label for="password">练习密码（至少 6 位）</label><input id="password" type="password" autocomplete="off" aria-describedby="password-tip"><p id="password-tip" class="status" aria-live="polite">请输入练习密码。</p><button id="clear" class="secondary">清空输入框</button></section>
+<section class="panel"><h2>理解这一步</h2><p>value 是输入框的值；textContent 是元素内部显示的文字。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-04/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const text = document.querySelector('#text');
+const nameInput = document.querySelector('#name');
+const password = document.querySelector('#password');
+function render() {
+  document.querySelector('#mirror').textContent = text.value || '你还没有输入文字。';
+  const name = nameInput.value.trim();
+  document.querySelector('#welcome').textContent = name ? '欢迎你，' + name + '！' : '请输入名字。';
+  const length = password.value.length;
+  const tip = document.querySelector('#password-tip');
+  tip.textContent = length === 0 ? '请输入练习密码。' : length &lt; 6 ? '长度 ' + length + '：还需要 ' + (6 - length) + ' 位。' : '长度 ' + length + '：长度合格。';
+  tip.classList.toggle('error', length &gt; 0 &amp;&amp; length &lt; 6);
+}
+[text, nameInput, password].forEach(function (input) {
+  input.addEventListener('input', render);
+});
+document.querySelector('#clear').addEventListener('click', function () {
+  text.value = '';
+  nameInput.value = '';
+  password.value = '';
+  // 通过代码修改 value 不会自动触发 input，所以手动更新页面。
+  render();
+  text.focus();
+});
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>输入内容实时显示。</li><li>输入名字后显示欢迎语。</li><li>密码不足 6 位时提示，并可清空全部输入。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-03/index.html">← 第 3 天</a><a href="../index.html">课程目录</a><a href="../day-05/index.html">第 5 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

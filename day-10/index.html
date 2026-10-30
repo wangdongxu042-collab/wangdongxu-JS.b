@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>map 渲染列表 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 2 周 · 数组对象 + 页面渲染</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 10 / 19</p><h1>map 渲染列表</h1><p class="muted">用 map 把数据变成 HTML 字符串，再用 join 连接。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><h3>商品列表</h3><ul id="products" class="list"></ul><h3>用户列表</h3><ul id="users" class="list"></ul><h3>文章列表</h3><ul id="articles" class="list"></ul><p class="note">本日 innerHTML 只拼接代码中固定的数据；输入框或接口返回的文字请用 textContent 显示。</p></section>
+<section class="panel"><h2>理解这一步</h2><p>试着去掉 join(&quot;&quot;)，观察数组被转成字符串时出现的逗号。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-10/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const products = [{ name: '笔记本', price: 28 }, { name: '台灯', price: 129 }];
+const users = [{ name: '张三', role: '设计师' }, { name: '李四', role: '开发者' }];
+const articles = [{ title: '认识 DOM', author: '小林' }, { title: '第一个点击事件', author: '小周' }];
+// map 返回一个新数组，每项都是一段 HTML；join('') 去掉默认的逗号。
+const html = products.map(function (item) {
+  return '&lt;li&gt;' + item.name + ' · ¥' + item.price + '&lt;/li&gt;';
+}).join('');
+document.querySelector('#products').innerHTML = html;
+document.querySelector('#users').innerHTML = users.map(function (item) {
+  return '&lt;li&gt;' + item.name + ' · ' + item.role + '&lt;/li&gt;';
+}).join('');
+document.querySelector('#articles').innerHTML = articles.map(function (item) {
+  return '&lt;li&gt;' + item.title + ' · 作者：' + item.author + '&lt;/li&gt;';
+}).join('');
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>商品、用户、文章三类列表都能显示。</li><li>页面不会在列表项之间出现逗号。</li><li>对照源代码理解 map 和 join 分别做什么。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-09/index.html">← 第 9 天</a><a href="../index.html">课程目录</a><a href="../day-11/index.html">第 11 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

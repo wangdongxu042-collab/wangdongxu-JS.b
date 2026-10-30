@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>公告牌编辑器</title>
+</head>
+<body>
+    <h1>公告牌编辑器</h1>
+
+    <input id="messageInput" type="text" placeholder="请输入公告">
+
+    <select id="colorSelect">
+        <option value="red">红色</option>
+        <option value="blue">蓝色</option>
+        <option value="green">绿色</option>
+    </select>
+
+    <button onclick="updateNotice()">更新公告</button>
+
+    <p id="notice">这里是公告内容</p>
+
+    <script>
+        function updateNotice() {
+            // 1. 读取输入框中的文字
+            let message = document.getElementById("messageInput").value;
+
+            // 2. 读取下拉框中选择的颜色
+            let color = document.getElementById("colorSelect").value;
+
+            // 3. 找到公告段落
+            let notice = document.getElementById("notice");
+
+            // 4. 修改公告文字
+            notice.textContent = message;
+
+            // 5. 修改公告文字的颜色
+            notice.style.color = color;
+        }
+    </script>
+</body>
+</html>

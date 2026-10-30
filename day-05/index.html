@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>表单事件 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 1 周 · DOM + 事件</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 05 / 19</p><h1>表单事件</h1><p class="muted">用 submit 和 preventDefault 编写前端校验。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><p class="note">仅演示前端校验，不会发送登录请求。请使用随意编写的练习密码。</p><form id="login" novalidate><label for="username">用户名</label><input id="username" autocomplete="off" aria-describedby="username-error"><p id="username-error" class="status error"></p><label for="password">练习密码</label><input id="password" type="password" autocomplete="off" aria-describedby="password-error"><p id="password-error" class="status error"></p><button type="submit">提交表单</button><p id="result" class="status" role="status"></p></form></section>
+<section class="panel"><h2>理解这一步</h2><p>form 上监听 submit，也能处理在输入框里按回车提交的情况。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-05/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const form = document.querySelector('#login');
+const username = document.querySelector('#username');
+const password = document.querySelector('#password');
+form.addEventListener('submit', function (event) {
+  event.preventDefault(); // 阻止表单默认提交和页面刷新
+  const name = username.value.trim();
+  const nameError = name ? '' : '用户名不能为空。';
+  const passwordError = password.value.length === 0 ? '密码不能为空。' : password.value.length &lt; 6 ? '密码至少需要 6 位。' : '';
+  document.querySelector('#username-error').textContent = nameError;
+  document.querySelector('#password-error').textContent = passwordError;
+  username.setAttribute('aria-invalid', String(Boolean(nameError)));
+  password.setAttribute('aria-invalid', String(Boolean(passwordError)));
+  const result = document.querySelector('#result');
+  if (nameError || passwordError) {
+    result.textContent = '请修正上方提示后重新提交。';
+    (nameError ? username : password).focus();
+    return;
+  }
+  result.textContent = '提交成功，欢迎你，' + name + '！（前端校验演示）';
+});
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>空用户名、空密码分别提示。</li><li>密码少于 6 位不能通过。</li><li>合法输入显示成功提示，页面不会刷新。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-04/index.html">← 第 4 天</a><a href="../index.html">课程目录</a><a href="../day-06/index.html">第 6 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

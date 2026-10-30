@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>实时输入统计器</title>
+</head>
+<body>
+    <h1>实时输入统计器</h1>
+
+    <input id="textInput" type="text"
+           placeholder="请输入文字"
+           oninput="updateText()">
+
+    <p id="preview">你输入了：</p>
+    <p>输入长度：<span id="count">0</span></p>
+
+    <script>
+        function updateText() {
+            // 1. 读取输入框里的文字
+            let text = document.getElementById("textInput").value;
+
+            // 2. 找到预览段落，显示输入内容
+            let preview = document.getElementById("preview");
+            preview.textContent = "你输入了：" + text;
+
+            // 3. 找到显示长度的元素
+            let count = document.getElementById("count");
+
+            // 4. 显示文字的长度
+            count.textContent = text.length;
+        }
+    </script>
+</body>
+</html>

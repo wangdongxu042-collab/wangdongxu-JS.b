@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>对象与属性 · JavaScript 练习册</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="../index.html">JS / 每天一点进步</a><span class="badge">第 2 周 · 数组对象 + 页面渲染</span></header>
+<main><div class="lesson-head"><p class="eyebrow">DAY 08 / 19</p><h1>对象与属性</h1><p class="muted">用对象描述用户，读取并修改对象属性。</p></div>
+<div class="lesson-layout"><div><section class="panel" aria-label="交互练习"><div class="output"><h3 id="user-name"></h3><p id="user-info"></p></div><label for="new-name">新名字</label><input id="new-name" placeholder="例如：李四"><div class="row"><button id="save">修改名字</button></div><p id="message" role="status"></p><h3>当前对象</h3><pre id="object"></pre></section>
+<section class="panel"><h2>理解这一步</h2><p>对象适合描述一个事物；属性名说明这个值的含义。</p><details><summary>查看本日参考代码</summary><p class="muted">文件：day-08/script.js。以下为初始参考答案；修改后的代码以编辑器中的文件为准。</p><pre><code>const user = { name: '张三', age: 18, role: 'JavaScript 学习者' };
+function renderUser() {
+  // 点语法和方括号语法都可以读取属性。
+  document.querySelector('#user-name').textContent = user.name;
+  document.querySelector('#user-info').textContent = user['age'] + ' 岁 · ' + user.role;
+  document.querySelector('#object').textContent = JSON.stringify(user, null, 2);
+}
+document.querySelector('#save').addEventListener('click', function () {
+  const name = document.querySelector('#new-name').value.trim();
+  if (!name) {
+    document.querySelector('#message').textContent = '请输入新名字。';
+    return;
+  }
+  user.name = name; // 修改对象属性之后，需要再次渲染页面。
+  renderUser();
+  document.querySelector('#message').textContent = '名字已更新。';
+});
+renderUser();
+</code></pre></details></section></div>
+<aside class="panel guide"><p class="eyebrow">CHECK YOUR WORK</p><h2>今日自测</h2><ol><li>页面显示名字、年龄、身份。</li><li>修改名字后更新资料和对象预览。</li><li>空名字不覆盖原来的名字。</li></ol><p class="note">先操作 → 读代码 → 改一改 → 合上答案重写。</p></aside></div>
+<nav class="lesson-footer" aria-label="课程导航"><a href="../day-07/index.html">← 第 7 天</a><a href="../index.html">课程目录</a><a href="../day-09/index.html">第 9 天 →</a></nav>
+</main><footer>JavaScript 练习册 · 原生 HTML / CSS / JavaScript · 无需框架</footer></div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="原生 JavaScript 商品与购物车自主练习">
+  <title>自主練習 · 小小商店</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="../index.html"><span class="brand-icon" aria-hidden="true">小</span> 小小商店 <span class="brand-note">/ 自主練習</span></a>
+      <a class="cart-link" href="#cart">购物车 <span id="cart-count">0</span></a>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">JAVASCRIPT / 自主練習</p>
+        <h1>把喜欢的，放进购物车。</h1>
+        <p>一个小商店，串起你学过的 JavaScript。搜索、挑选，再算一算总价。</p>
+        <div class="intro-tags"><span>01 / 获取商品</span><span>02 / 筛选与排序</span><span>03 / 管理购物车</span></div>
+      </section>
+
+      <div class="shop-layout">
+        <section class="catalog" aria-labelledby="catalog-title">
+          <div class="section-heading"><h2 id="catalog-title">逛逛商品</h2><button id="reload" class="text-button" type="button">重新加载</button></div>
+          <div class="filters">
+            <label class="search-label">搜索商品
+              <input id="search" type="search" placeholder="试试 apple、香水或家具…" autocomplete="off">
+            </label>
+            <label>商品分类<select id="category"><option value="all">全部分类</option></select></label>
+            <label>排序方式<select id="sort"><option value="default">默认顺序</option><option value="price-asc">价格从低到高</option><option value="price-desc">价格从高到低</option><option value="name">名称 A–Z</option></select></label>
+          </div>
+          <div class="results-meta"><p id="result-count" role="status">准备获取商品</p><span>价格单位：USD 美元</span></div>
+          <div id="product-region" aria-busy="true">
+            <div id="loading" class="state-box" role="status"><span class="spinner" aria-hidden="true"></span><h3>正在加载商品…</h3><p>稍等一下，好物正在路上。</p></div>
+            <div id="error" class="state-box" role="alert" hidden><h3>商品加载失败</h3><p id="error-message"></p><button id="retry" type="button">重新尝试</button></div>
+            <div id="empty" class="state-box" hidden><span class="state-icon" aria-hidden="true">⌕</span><h3 id="empty-title">没有找到商品</h3><p>换个关键词或分类，再试一次吧。</p><button id="reset" class="secondary" type="button">重置筛选</button></div>
+            <div id="products" class="product-grid"></div>
+          </div>
+        </section>
+
+        <aside id="cart" class="cart-panel" aria-labelledby="cart-title">
+          <div class="section-heading"><h2 id="cart-title">我的购物车</h2><span class="mini-label">YOUR BAG</span></div>
+          <p class="cart-caption">今天的心动，都在这里。</p>
+          <div id="cart-empty" class="cart-empty"><span aria-hidden="true">＋</span><h3>购物车还是空的</h3><p>从左侧挑选一件喜欢的商品吧。</p></div>
+          <ul id="cart-items" class="cart-items" aria-label="购物车商品"></ul>
+          <div class="cart-summary">
+            <div><span>商品数量</span><strong id="total-quantity">0 件</strong></div>
+            <div class="total-row"><span>合计</span><strong id="total-price">$0.00</strong></div>
+            <p>仅计算商品金额 · 本页面为学习演示</p>
+            <button id="clear-cart" class="secondary full-width" type="button" disabled>清空购物车</button>
+          </div>
+          <p id="save-status" class="save-status" role="status">购物车会自动保存在当前浏览器。</p>
+        </aside>
+      </div>
+      <p id="announcement" class="announcement" role="status" aria-live="polite"></p>
+    </main>
+    <footer><span>小小商店 / 原生 HTML · CSS · JavaScript</span><a href="README.md">练习说明与自测清单 ↗</a></footer>
+  </div>
+
+  <template id="product-template">
+    <article class="product-card">
+      <div class="product-image"><img loading="lazy" alt=""><span class="image-fallback" hidden>暂无图片</span></div>
+      <div class="product-body"><p class="product-category"></p><h3></h3><div class="product-bottom"><strong class="price"></strong><button type="button" data-action="add">＋ 加入</button></div></div>
+    </article>
+  </template>
+  <template id="cart-template">
+    <li class="cart-item">
+      <div class="cart-item-heading"><h3></h3><button class="remove-button" type="button" data-action="remove">删除</button></div>
+      <p class="unit-price"></p>
+      <div class="cart-item-bottom"><div class="quantity-control"><button type="button" data-action="decrease">−</button><input type="number" min="1" max="99" step="1" inputmode="numeric" data-action="quantity"><button type="button" data-action="increase">＋</button></div><strong class="subtotal"></strong></div>
+    </li>
+  </template>
+</body>
+</html>
